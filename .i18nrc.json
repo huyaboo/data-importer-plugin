@@ -1,0 +1,7 @@
+{
+  "prefix": "staticDataIngestion",
+  "paths": {
+    "staticDataIngestion": "."
+  },
+  "translations": ["translations/ja-JP.json"]
+}
