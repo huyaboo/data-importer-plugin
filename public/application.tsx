@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import { AppMountParameters, CoreStart } from '../../../src/core/public';
 import { AppPluginStartDependencies } from './types';
 import { StaticDataIngestionApp } from './components/app';
+import { ConfigSchema } from '../config';
 
 export const renderApp = (
   { notifications, http }: CoreStart,
   { navigation }: AppPluginStartDependencies,
-  { appBasePath, element }: AppMountParameters
+  { appBasePath, element }: AppMountParameters,
+  config: ConfigSchema
 ) => {
   ReactDOM.render(
     <StaticDataIngestionApp
@@ -15,6 +17,7 @@ export const renderApp = (
       notifications={notifications}
       http={http}
       navigation={navigation}
+      config={config}
     />,
     element
   );

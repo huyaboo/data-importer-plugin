@@ -1,10 +1,15 @@
 import { schema, TypeOf } from '@osd/config-schema';
+import { CSV_FILE_TYPE, JSON_FILE_TYPE, NDJSON_FILE_TYPE } from './common/constants';
 
 export const configSchema = schema.object({
   enabledFileTypes: schema.arrayOf(
-    schema.oneOf([schema.literal('csv'), schema.literal('json'), schema.literal('ndjson')]),
+    schema.oneOf([
+      schema.literal(CSV_FILE_TYPE),
+      schema.literal(JSON_FILE_TYPE),
+      schema.literal(NDJSON_FILE_TYPE),
+    ]),
     {
-      defaultValue: [],
+      defaultValue: ['csv', 'json'],
     }
   ),
   maxFileSizeBytes: schema.number({

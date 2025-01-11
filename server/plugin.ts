@@ -17,6 +17,8 @@ import {
 import { importFileRoute } from './routes/import_file';
 import { CSVParser } from './parsers/csv_parser';
 import { DataSourcePluginSetup } from 'src/plugins/data_source/public';
+import { importTextRoute } from './routes/import_text';
+import { CSV_FILE_TYPE } from '../common/constants';
 
 export interface StaticDataIngestionPluginSetupDeps {
   dataSource?: DataSourcePluginSetup;
@@ -39,10 +41,11 @@ export class StaticDataIngestionPlugin
     const router = core.http.createRouter();
 
     // Register file parsers
-    const fileParsers: Map<string, IFileParser> = new Map([['csv', new CSVParser()]]);
+    const fileParsers: Map<string, IFileParser> = new Map([[CSV_FILE_TYPE, new CSVParser()]]);
 
     // Register server side APIs
     importFileRoute(router, config, fileParsers, !!dataSource);
+    importTextRoute(router, config, fileParsers, !!dataSource);
 
     return {};
   }
