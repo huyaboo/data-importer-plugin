@@ -1,6 +1,6 @@
-import { IFileParser, IngestOptions, ValidationOptions } from '../types';
 import { parseStream, parseString } from 'fast-csv';
 import { Readable } from 'stream';
+import { IFileParser, IngestOptions, ValidationOptions } from '../types';
 
 export class CSVParser implements IFileParser {
   public async validateText(text: string, options: ValidationOptions) {
@@ -50,7 +50,6 @@ export class CSVParser implements IFileParser {
     });
 
     return {
-      success: true,
       total: numDocuments,
       message: `Indexed ${numDocuments} documents`,
     };
@@ -76,7 +75,6 @@ export class CSVParser implements IFileParser {
     });
 
     return {
-      success: true,
       total: numDocuments,
       message: `Indexed ${numDocuments} documents`,
     };

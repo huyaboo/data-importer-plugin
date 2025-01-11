@@ -1,7 +1,7 @@
 import { schema, TypeOf } from '@osd/config-schema';
 import { extname } from 'path';
-import { CSV_SUPPORTED_DELIMITERS } from '../../common/constants';
 import { Readable } from 'stream';
+import { CSV_SUPPORTED_DELIMITERS } from '../../common/constants';
 import { IRouter } from '../../../../src/core/server';
 import { configSchema } from '../../config';
 import { IFileParser } from '../types';

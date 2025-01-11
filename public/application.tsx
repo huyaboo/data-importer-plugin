@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppMountParameters, CoreStart } from '../../../src/core/public';
 import { AppPluginStartDependencies } from './types';
-import { StaticDataIngestionApp } from './components/app';
+import { DataImporterPluginApp } from './components/app';
 import { ConfigSchema } from '../config';
 
 export const renderApp = (
@@ -12,7 +12,7 @@ export const renderApp = (
   config: ConfigSchema
 ) => {
   ReactDOM.render(
-    <StaticDataIngestionApp
+    <DataImporterPluginApp
       basename={appBasePath}
       notifications={notifications}
       http={http}

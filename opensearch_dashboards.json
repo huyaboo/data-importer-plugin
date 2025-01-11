@@ -1,5 +1,5 @@
 {
-  "id": "staticDataIngestion",
+  "id": "dataImporterPlugin",
   "version": "8.0.0",
   "opensearchDashboardsVersion": "opensearchDashboards",
   "server": true,

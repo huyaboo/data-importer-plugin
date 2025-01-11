@@ -1,5 +1,5 @@
-import { SupportedFileTypes } from '../../common/types';
 import { HttpStart } from 'src/core/public';
+import { SupportedFileTypes } from '../../common/types';
 import { ImportResponse } from '../types';
 
 export async function importText(

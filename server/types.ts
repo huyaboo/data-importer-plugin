@@ -2,9 +2,9 @@ import { OpenSearchClient } from 'opensearch-dashboards/server';
 import { Readable } from 'stream';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface StaticDataIngestionPluginSetup {}
+export interface DataImporterPluginSetup {}
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface StaticDataIngestionPluginStart {}
+export interface DataImporterPluginStart {}
 
 export interface IngestOptions {
   client: OpenSearchClient;
@@ -15,7 +15,6 @@ export interface IngestOptions {
 
 export interface IngestResponse {
   total: number;
-  success: boolean;
   message: string;
 }
 

@@ -1,11 +1,11 @@
 import './index.scss';
 
-import { StaticDataIngestionPlugin } from './plugin';
 import { PluginInitializerContext } from 'opensearch-dashboards/public';
+import { DataImporterPlugin } from './plugin';
 
 // This exports static code and TypeScript types,
 // as well as, OpenSearch Dashboards Platform `plugin()` initializer.
 export function plugin(initializerContext: PluginInitializerContext) {
-  return new StaticDataIngestionPlugin(initializerContext);
+  return new DataImporterPlugin(initializerContext);
 }
-export { StaticDataIngestionPluginSetup, StaticDataIngestionPluginStart } from './types';
+export { DataImporterPluginSetup, DataImporterPluginStart } from './types';

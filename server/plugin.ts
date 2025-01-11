@@ -1,3 +1,6 @@
+import { first } from 'rxjs/operators';
+import { TypeOf } from '@osd/config-schema';
+import { DataSourcePluginSetup } from 'src/plugins/data_source/public';
 import {
   PluginInitializerContext,
   CoreSetup,
@@ -5,34 +8,27 @@ import {
   Plugin,
   Logger,
 } from '../../../src/core/server';
-import { first } from 'rxjs/operators';
-import { TypeOf } from '@osd/config-schema';
 import { configSchema } from '../config';
 
-import {
-  IFileParser,
-  StaticDataIngestionPluginSetup,
-  StaticDataIngestionPluginStart,
-} from './types';
+import { IFileParser, DataImporterPluginSetup, DataImporterPluginStart } from './types';
 import { importFileRoute } from './routes/import_file';
 import { CSVParser } from './parsers/csv_parser';
-import { DataSourcePluginSetup } from 'src/plugins/data_source/public';
 import { importTextRoute } from './routes/import_text';
 import { CSV_FILE_TYPE } from '../common/constants';
 
-export interface StaticDataIngestionPluginSetupDeps {
+export interface DataImporterPluginSetupDeps {
   dataSource?: DataSourcePluginSetup;
 }
 
-export class StaticDataIngestionPlugin
-  implements Plugin<StaticDataIngestionPluginSetup, StaticDataIngestionPluginStart> {
+export class DataImporterPlugin
+  implements Plugin<DataImporterPluginSetup, DataImporterPluginStart> {
   private readonly logger: Logger;
 
   constructor(private readonly initializerContext: PluginInitializerContext) {
     this.logger = initializerContext.logger.get();
   }
 
-  public async setup(core: CoreSetup, { dataSource }: StaticDataIngestionPluginSetupDeps) {
+  public async setup(core: CoreSetup, { dataSource }: DataImporterPluginSetupDeps) {
     const config = await this.initializerContext.config
       .create<TypeOf<typeof configSchema>>()
       .pipe(first())
@@ -51,7 +47,7 @@ export class StaticDataIngestionPlugin
   }
 
   public start(core: CoreStart) {
-    this.logger.debug('staticDataIngestion: Started');
+    this.logger.debug('dataImporterPlugin: Started');
     return {};
   }
 

@@ -48,7 +48,7 @@ export const ImportTypeSelector = ({
         children: (
           <EuiTitle size="xs">
             <span>
-              {i18n.translate('staticDataIngestion.importType', {
+              {i18n.translate('dataImporterPlugin.importType', {
                 defaultMessage: 'Import Type',
               })}
             </span>
@@ -59,10 +59,10 @@ export const ImportTypeSelector = ({
       <EuiCheckableCard
         id={'file-selection'}
         label={createLabel({
-          text: i18n.translate('staticDataIngestion.file', {
+          text: i18n.translate('dataImporterPlugin.file', {
             defaultMessage: 'Upload from file',
           }),
-          tooltip: i18n.translate('staticDataIngestion.fileTooltip', {
+          tooltip: i18n.translate('dataImporterPlugin.fileTooltip', {
             defaultMessage: 'Upload data from a file',
           }),
         })}
@@ -75,10 +75,10 @@ export const ImportTypeSelector = ({
       <EuiCheckableCard
         id={'text-selection'}
         label={createLabel({
-          text: i18n.translate('staticDataIngestion.file', {
+          text: i18n.translate('dataImporterPlugin.file', {
             defaultMessage: 'Text box',
           }),
-          tooltip: i18n.translate('staticDataIngestion.fileTooltip', {
+          tooltip: i18n.translate('dataImporterPlugin.fileTooltip', {
             defaultMessage: 'Type/paste data',
           }),
         })}

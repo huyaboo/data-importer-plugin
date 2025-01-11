@@ -13,9 +13,10 @@ import {
   EuiTitle,
   EuiPageSideBar,
   EuiFieldText,
-  EuiSelect,
 } from '@elastic/eui';
 
+import { DataSourceOption } from 'src/plugins/data_source_management/public';
+import { extname } from 'path';
 import { CoreStart } from '../../../../src/core/public';
 import { NavigationPublicPluginStart } from '../../../../src/plugins/navigation/public';
 
@@ -30,14 +31,13 @@ import { importFile } from '../lib/import_file';
 import { importText } from '../lib/import_text';
 import { ImportResponse } from '../types';
 import { SupportedFileTypes } from '../../common/types';
-import { DataSourceOption } from 'src/plugins/data_source_management/public';
 import { ConfigSchema } from '../../config';
 import { ImportTextContentBody } from './import_text_content';
 import { ImportFileContentBody } from './import_file_content';
 import { CSV_FILE_TYPE, CSV_SUPPORTED_DELIMITERS } from '../../common/constants';
-import { extname } from 'path';
+import { DelimiterSelect } from './delimiter_select';
 
-interface StaticDataIngestionAppDeps {
+interface DataImporterPluginAppDeps {
   basename: string;
   notifications: CoreStart['notifications'];
   http: CoreStart['http'];
@@ -45,13 +45,13 @@ interface StaticDataIngestionAppDeps {
   config: ConfigSchema;
 }
 
-export const StaticDataIngestionApp = ({
+export const DataImporterPluginApp = ({
   basename,
   notifications,
   http,
   navigation,
   config,
-}: StaticDataIngestionAppDeps) => {
+}: DataImporterPluginAppDeps) => {
   const [indexName, setIndexName] = useState<string>();
   const [importType, setImportType] = useState<ImportChoices>(IMPORT_CHOICE_FILE);
   const [disableImport, setDisableImport] = useState<boolean>();
@@ -80,7 +80,7 @@ export const StaticDataIngestionApp = ({
   };
 
   const onDataTypeChange = (type: SupportedFileTypes) => {
-    if (type != CSV_FILE_TYPE) {
+    if (type !== CSV_FILE_TYPE) {
       setDelimiter(undefined);
     }
     setDataType(type);
@@ -122,7 +122,7 @@ export const StaticDataIngestionApp = ({
       }
     } catch (error) {
       notifications.toasts.addDanger(
-        i18n.translate('staticDataIngestion.dataImportFailed', {
+        i18n.translate('dataImporterPlugin.dataImportFailed', {
           defaultMessage: `Data import failed: ${error}`,
         })
       );
@@ -131,13 +131,13 @@ export const StaticDataIngestionApp = ({
 
     if (response && response.success) {
       notifications.toasts.addSuccess(
-        i18n.translate('staticDataIngestion.dataImported', {
+        i18n.translate('dataImporterPlugin.dataImported', {
           defaultMessage: `${response.message.total} documents successfully ingested into ${indexName}`,
         })
       );
     } else {
       notifications.toasts.addDanger(
-        i18n.translate('staticDataIngestion.dataImportFailed', {
+        i18n.translate('dataImporterPlugin.dataImportFailed', {
           defaultMessage: 'Data import failed',
         })
       );
@@ -146,14 +146,13 @@ export const StaticDataIngestionApp = ({
 
   useEffect(() => {
     setDisableImport(shouldDisableImportButton());
-    addDangerToasts();
     setShowDelimiterChoice(shouldShowDelimiter());
   }, [importType, inputText, inputFile, dataType, indexName]);
 
-  const addDangerToasts = () => {
+  useEffect(() => {
     if (inputText && inputText.length > config.maxTextCount) {
       notifications.toasts.addDanger(
-        i18n.translate('staticDataIngestion.textTooLong', {
+        i18n.translate('dataImporterPlugin.textTooLong', {
           defaultMessage: `Text exceeds ${config.maxTextCount} characters`,
         })
       );
@@ -161,14 +160,14 @@ export const StaticDataIngestionApp = ({
 
     if (inputFile && inputFile.size > config.maxFileSizeBytes) {
       notifications.toasts.addDanger(
-        i18n.translate('staticDataIngestion.fileTooLarge', {
+        i18n.translate('dataImporterPlugin.fileTooLarge', {
           defaultMessage: `File is too large`,
         })
       );
     }
-  };
+  }, [inputText, inputFile, config, notifications]);
 
-  const shouldDisableImportButton = () => {
+  function shouldDisableImportButton() {
     const validFileType =
       importType === IMPORT_CHOICE_FILE && inputFile && inputFile.size < config.maxFileSizeBytes;
     const validTextType =
@@ -177,7 +176,7 @@ export const StaticDataIngestionApp = ({
       inputText.length < config.maxTextCount &&
       dataType;
     return !(validFileType || validTextType) || !indexName;
-  };
+  }
 
   function shouldShowDelimiter() {
     let inputFileType;
@@ -203,22 +202,7 @@ export const StaticDataIngestionApp = ({
                 initialSelection={importType}
               />
               {showDelimiterChoice && (
-                <div>
-                  <EuiTitle size="xs">
-                    <span>
-                      {i18n.translate('staticDataIngestion.importType', {
-                        defaultMessage: 'Delimiter',
-                      })}
-                    </span>
-                  </EuiTitle>
-                  <EuiSelect
-                    options={CSV_SUPPORTED_DELIMITERS.map((delimiter: string) => {
-                      return { value: delimiter, text: delimiter };
-                    })}
-                    onChange={onDelimiterChange}
-                    value={delimiter}
-                  />
-                </div>
+                <DelimiterSelect onDelimiterChange={onDelimiterChange} value={delimiter} />
               )}
               <EuiFieldText placeholder="Index name" onChange={onIndexNameChange} />
               <EuiButton fullWidth={false} isDisabled={disableImport} onClick={importData}>
@@ -230,7 +214,7 @@ export const StaticDataIngestionApp = ({
                 <EuiTitle size="l">
                   <h1>
                     <FormattedMessage
-                      id="staticDataIngestion.helloWorldText"
+                      id="dataImporterPlugin.helloWorldText"
                       defaultMessage="{name}"
                       values={{ name: 'Data Importer Plugin' }}
                     />
@@ -243,13 +227,13 @@ export const StaticDataIngestionApp = ({
                     <h2>
                       {importType === IMPORT_CHOICE_TEXT && (
                         <FormattedMessage
-                          id="staticDataIngestion.congratulationsTitle"
+                          id="dataImporterPlugin.congratulationsTitle"
                           defaultMessage="Import Data"
                         />
                       )}
                       {importType === IMPORT_CHOICE_FILE && (
                         <FormattedMessage
-                          id="staticDataIngestion.congratulationsTitle"
+                          id="dataImporterPlugin.congratulationsTitle"
                           defaultMessage="Import Data from File"
                         />
                       )}

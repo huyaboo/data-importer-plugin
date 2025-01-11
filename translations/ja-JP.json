@@ -76,6 +76,6 @@
     }
   },
   "messages": {
-    "staticDataIngestion.buttonText": "Translate me to Japanese"
+    "dataImporterPlugin.buttonText": "Translate me to Japanese"
   }
 }

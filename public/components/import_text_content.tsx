@@ -22,10 +22,10 @@ export const ImportTextContentBody = ({
   const [codeEditorText, setCodeEditorText] = useState<string>('');
   const [fileType, setFileType] = useState<SupportedFileTypes>(initialFileType);
   const [numCharacters, setNumCharacters] = useState<number>(0);
-  const options = enabledFileTypes.map((fileType) => {
+  const options = enabledFileTypes.map((type) => {
     return {
-      value: fileType,
-      text: fileType,
+      value: type,
+      text: type,
     };
   });
 

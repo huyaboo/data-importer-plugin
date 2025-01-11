@@ -1,6 +1,12 @@
-# staticDataIngestion
+# Data Importer Plugin
 
-A OpenSearch Dashboards plugin
+A OpenSearch Dashboards plugin for importing your static data.
+
+Supported filetypes:
+
+- JSON
+- CSV
+- NDJSON
 
 ---
 

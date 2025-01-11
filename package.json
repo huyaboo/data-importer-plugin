@@ -1,11 +1,14 @@
 {
-  "name": "staticDataIngestion",
+  "name": "dataImporterPlugin",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "build": "yarn plugin-helpers build",
     "plugin-helpers": "../../scripts/use_node ../../scripts/plugin_helpers",
-    "osd": "../../scripts/use_node ../../scripts/osd"
+    "osd": "../../scripts/use_node ../../scripts/osd",
+    "opensearch": "node ../../scripts/opensearch",
+    "lint": "node ../../scripts/eslint . && node ../../scripts/stylelint",
+    "test:jest": "../../node_modules/.bin/jest"
   },
   "dependencies": {
     "fast-csv": "^5.0.2"

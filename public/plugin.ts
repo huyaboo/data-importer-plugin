@@ -7,27 +7,27 @@ import {
   PluginInitializerContext,
 } from '../../../src/core/public';
 import {
-  StaticDataIngestionPluginSetup,
-  StaticDataIngestionPluginStart,
+  DataImporterPluginSetup,
+  DataImporterPluginStart,
   AppPluginStartDependencies,
 } from './types';
-import { PLUGIN_NAME } from '../common';
+import { PLUGIN_NAME, PLUGIN_NAME_AS_TITLE } from '../common';
 import { ConfigSchema } from '../config';
 
-export class StaticDataIngestionPlugin
-  implements Plugin<StaticDataIngestionPluginSetup, StaticDataIngestionPluginStart> {
+export class DataImporterPlugin
+  implements Plugin<DataImporterPluginSetup, DataImporterPluginStart> {
   private readonly config: ConfigSchema;
 
   constructor(initializerContext: PluginInitializerContext<ConfigSchema>) {
     this.config = initializerContext.config.get();
   }
 
-  public setup(core: CoreSetup): StaticDataIngestionPluginSetup {
+  public setup(core: CoreSetup): DataImporterPluginSetup {
     const config = this.config;
     // Register an application into the side navigation menu
     core.application.register({
-      id: 'staticDataIngestion',
-      title: PLUGIN_NAME,
+      id: 'dataImporterPlugin',
+      title: PLUGIN_NAME_AS_TITLE,
       async mount(params: AppMountParameters) {
         // Load application bundle
         const { renderApp } = await import('./application');
@@ -41,7 +41,7 @@ export class StaticDataIngestionPlugin
     // Return methods that should be available to other plugins
     return {
       getGreeting() {
-        return i18n.translate('staticDataIngestion.greetingText', {
+        return i18n.translate('dataImporterPlugin.greetingText', {
           defaultMessage: 'Hello from {name}!',
           values: {
             name: PLUGIN_NAME,
@@ -51,7 +51,7 @@ export class StaticDataIngestionPlugin
     };
   }
 
-  public start(core: CoreStart): StaticDataIngestionPluginStart {
+  public start(core: CoreStart): DataImporterPluginStart {
     return {};
   }
 

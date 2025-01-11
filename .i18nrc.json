@@ -1,7 +1,7 @@
 {
-  "prefix": "staticDataIngestion",
+  "prefix": "dataImporterPlugin",
   "paths": {
-    "staticDataIngestion": "."
+    "dataImporterPlugin": "."
   },
   "translations": ["translations/ja-JP.json"]
 }
