@@ -14,7 +14,9 @@ import { IFileParser, DataImporterPluginSetup, DataImporterPluginStart } from '.
 import { importFileRoute } from './routes/import_file';
 import { CSVParser } from './parsers/csv_parser';
 import { importTextRoute } from './routes/import_text';
-import { CSV_FILE_TYPE } from '../common/constants';
+import { CSV_FILE_TYPE, JSON_FILE_TYPE, NDJSON_FILE_TYPE } from '../common/constants';
+import { NDJSONParser } from './parsers/ndjson_parser';
+import { JSONParser } from './parsers/json_parser';
 
 export interface DataImporterPluginSetupDeps {
   dataSource?: DataSourcePluginSetup;
@@ -37,7 +39,11 @@ export class DataImporterPlugin
     const router = core.http.createRouter();
 
     // Register file parsers
-    const fileParsers: Map<string, IFileParser> = new Map([[CSV_FILE_TYPE, new CSVParser()]]);
+    const fileParsers: Map<string, IFileParser> = new Map([
+      [CSV_FILE_TYPE, new CSVParser()],
+      [NDJSON_FILE_TYPE, new NDJSONParser()],
+      [JSON_FILE_TYPE, new JSONParser()],
+    ]);
 
     // Register server side APIs
     importFileRoute(router, config, fileParsers, !!dataSource);

@@ -9,7 +9,7 @@ export const configSchema = schema.object({
       schema.literal(NDJSON_FILE_TYPE),
     ]),
     {
-      defaultValue: ['csv', 'json'],
+      defaultValue: [CSV_FILE_TYPE, JSON_FILE_TYPE, NDJSON_FILE_TYPE],
     }
   ),
   maxFileSizeBytes: schema.number({

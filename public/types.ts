@@ -1,8 +1,7 @@
 import { NavigationPublicPluginStart } from '../../../src/plugins/navigation/public';
 
-export interface DataImporterPluginSetup {
-  getGreeting: () => string;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface DataImporterPluginSetup {}
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DataImporterPluginStart {}
 

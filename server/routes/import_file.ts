@@ -51,6 +51,26 @@ export function importFileRoute(
     async (context, request, response) => {
       const client = decideClient(dataSourceEnabled, context, request.query.dataSource);
 
+      if (!!!client) {
+        return response.badRequest({
+          body: {
+            message: 'Data source is not enabled or does not exist',
+          },
+        });
+      }
+
+      const indexExists = await client.indices.exists({
+        index: request.query.indexName,
+      });
+
+      if (!indexExists.body) {
+        return response.badRequest({
+          body: {
+            message: `Index ${request.query.indexName} does not exist`,
+          },
+        });
+      }
+
       const file = request.body.file as FileStream;
       const fileExtension = extname(file.hapi.filename).toLowerCase();
       const fileType = fileExtension.startsWith('.') ? fileExtension.slice(1) : fileExtension;

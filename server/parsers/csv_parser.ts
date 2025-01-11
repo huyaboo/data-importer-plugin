@@ -24,6 +24,31 @@ export class CSVParser implements IFileParser {
     });
   }
 
+  public async ingestText(text: string, options: IngestOptions) {
+    const { client, indexName, delimiter } = options;
+
+    const numDocuments = await new Promise<number>((resolve, reject) => {
+      parseString(text, { headers: true, delimiter })
+        .on('data', async (row) => {
+          try {
+            await client.index({
+              index: indexName,
+              body: row,
+            });
+          } catch (e) {
+            reject(e);
+          }
+        })
+        .on('error', (error) => reject(error))
+        .on('end', (rowCount: number) => resolve(rowCount));
+    });
+
+    return {
+      total: numDocuments,
+      message: `Indexed ${numDocuments} documents`,
+    };
+  }
+
   public async ingestFile(file: Readable, options: IngestOptions) {
     const { client, indexName, delimiter } = options;
 
@@ -47,31 +72,6 @@ export class CSVParser implements IFileParser {
         .on('error', (error) => reject(error))
         .on('data-invalid', () => numFailedDocuments++)
         .on('end', (rowCount: number) => resolve(rowCount - numFailedDocuments));
-    });
-
-    return {
-      total: numDocuments,
-      message: `Indexed ${numDocuments} documents`,
-    };
-  }
-
-  public async ingestText(text: string, options: IngestOptions) {
-    const { client, indexName, delimiter } = options;
-
-    const numDocuments = await new Promise<number>((resolve, reject) => {
-      parseString(text, { headers: true, delimiter })
-        .on('data', async (row) => {
-          try {
-            await client.index({
-              index: indexName,
-              body: row,
-            });
-          } catch (e) {
-            reject(e);
-          }
-        })
-        .on('error', (error) => reject(error))
-        .on('end', (rowCount: number) => resolve(rowCount));
     });
 
     return {

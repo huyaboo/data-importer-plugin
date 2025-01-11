@@ -11,6 +11,8 @@
     "test:jest": "../../node_modules/.bin/jest"
   },
   "dependencies": {
-    "fast-csv": "^5.0.2"
+    "@types/ndjson": "^2.0.4",
+    "fast-csv": "^5.0.2",
+    "ndjson": "^2.0.0"
   }
 }
