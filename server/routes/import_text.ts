@@ -13,7 +13,7 @@ export function importTextRoute(
 ) {
   router.post(
     {
-      path: '/api/static_data_ingestion/import_text',
+      path: '/api/static_data_ingestion/_import_text',
       validate: {
         query: schema.object({
           fileType: schema.string({

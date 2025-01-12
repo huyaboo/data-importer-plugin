@@ -21,7 +21,7 @@ export function importFileRoute(
 ) {
   router.post(
     {
-      path: '/api/static_data_ingestion/import_file',
+      path: '/api/static_data_ingestion/_import_file',
       options: {
         body: {
           maxBytes: config.maxFileSizeBytes,
