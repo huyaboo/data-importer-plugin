@@ -44,10 +44,8 @@ export function importTextRoute(
       const client = decideClient(dataSourceEnabled, context, request.query.dataSource);
 
       if (!!!client) {
-        return response.badRequest({
-          body: {
-            message: 'Data source is not enabled or does not exist',
-          },
+        return response.notFound({
+          body: 'Data source is not enabled or does not exist',
         });
       }
 
@@ -57,17 +55,13 @@ export function importTextRoute(
         });
 
         if (!indexExists.body) {
-          return response.badRequest({
-            body: {
-              message: `Index ${request.query.indexName} does not exist`,
-            },
+          return response.notFound({
+            body: `Index ${request.query.indexName} does not exist`,
           });
         }
       } catch (e) {
         return response.internalError({
-          body: {
-            message: `Error checking if index exists: ${e}`,
-          },
+          body: `Error checking if index exists: ${e}`,
         });
       }
 
@@ -78,17 +72,13 @@ export function importTextRoute(
           ?.validateText(request.body.text, { delimiter: request.query.delimiter });
       } catch (e) {
         return response.badRequest({
-          body: {
-            message: `Text is not valid: ${e}`,
-          },
+          body: `Text is not valid: ${e}`,
         });
       }
 
       if (!isValid) {
         return response.badRequest({
-          body: {
-            message: 'Text is not valid',
-          },
+          body: 'Text is not valid',
         });
       }
 
@@ -109,9 +99,7 @@ export function importTextRoute(
         });
       } catch (e) {
         return response.internalError({
-          body: {
-            message: `Error ingesting text: ${e}`,
-          },
+          body: `Error ingesting text: ${e}`,
         });
       }
     }

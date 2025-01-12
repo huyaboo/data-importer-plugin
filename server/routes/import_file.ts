@@ -52,10 +52,8 @@ export function importFileRoute(
       const client = decideClient(dataSourceEnabled, context, request.query.dataSource);
 
       if (!!!client) {
-        return response.badRequest({
-          body: {
-            message: 'Data source is not enabled or does not exist',
-          },
+        return response.notFound({
+          body: 'Data source is not enabled or does not exist',
         });
       }
 
@@ -65,17 +63,13 @@ export function importFileRoute(
         });
 
         if (!indexExists.body) {
-          return response.badRequest({
-            body: {
-              message: `Index ${request.query.indexName} does not exist`,
-            },
+          return response.notFound({
+            body: `Index ${request.query.indexName} does not exist`,
           });
         }
       } catch (e) {
         return response.internalError({
-          body: {
-            message: `Error checking if index exists: ${e}`,
-          },
+          body: `Error checking if index exists: ${e}`,
         });
       }
 
@@ -85,9 +79,7 @@ export function importFileRoute(
 
       if (!(config.enabledFileTypes as string[]).includes(fileType)) {
         return response.badRequest({
-          body: {
-            message: `File type ${fileType} is not supported or enabled`,
-          },
+          body: `File type ${fileType} is not supported or enabled`,
         });
       }
 
@@ -107,9 +99,7 @@ export function importFileRoute(
         });
       } catch (e) {
         return response.internalError({
-          body: {
-            message: `Error ingesting file: ${e}`,
-          },
+          body: `Error ingesting file: ${e}`,
         });
       }
     }

@@ -179,7 +179,7 @@ export const DataImporterPluginApp = ({
         })
       );
     }
-  }, [inputText, inputFile]);
+  }, [inputText, inputFile, config.maxTextCount, config.maxFileSizeBytes, notifications.toasts]);
 
   const renderDataSourceComponent = useMemo(() => {
     return (
@@ -198,7 +198,7 @@ export const DataImporterPluginApp = ({
         <EuiSpacer size="m" />
       </div>
     );
-  }, [savedObjects, notifications]);
+  }, [dataSourceManagement, savedObjects.client, notifications, selectedDataSource]);
 
   function shouldDisableImportButton() {
     const validFileType =
@@ -235,7 +235,10 @@ export const DataImporterPluginApp = ({
                 initialSelection={importType}
               />
               {showDelimiterChoice && (
-                <DelimiterSelect onDelimiterChange={onDelimiterChange} value={delimiter} />
+                <DelimiterSelect
+                  onDelimiterChange={onDelimiterChange}
+                  initialDelimiter={delimiter}
+                />
               )}
               <EuiTitle size="xs">
                 <span>
