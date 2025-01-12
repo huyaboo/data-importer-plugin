@@ -4,7 +4,7 @@ import { AppMountParameters, CoreStart } from '../../../src/core/public';
 import { DataImporterPluginStartDependencies } from './types';
 import { DataImporterPluginApp } from './components/app';
 import { PublicConfigSchema } from '../config';
-import { DataImporterPluginSetupDeps } from './plugin';
+import { DataImporterPluginSetupDeps } from './types';
 
 export const renderApp = (
   { notifications, http, savedObjects }: CoreStart,

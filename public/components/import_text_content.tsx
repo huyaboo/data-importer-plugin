@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 
-import { EuiCodeEditor, EuiPageContentBody, EuiSelect, EuiText } from '@elastic/eui';
+import {
+  EuiCodeEditor,
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiPageContentBody,
+  EuiSelect,
+  EuiText,
+} from '@elastic/eui';
 import { SupportedFileTypes } from '../../common/types';
 import { JSON_FILE_TYPE } from '../../common/constants';
 
@@ -42,23 +49,36 @@ export const ImportTextContentBody = ({
 
   return (
     <EuiPageContentBody>
-      <div>
-        <EuiSelect
-          options={options}
-          fullWidth={false}
-          onChange={onOptionSelect}
-          value={initialFileType}
-        />
-      </div>
-      <EuiCodeEditor
-        onChange={onTextUpdate}
-        width={'full'}
-        value={codeEditorText}
-        mode={fileType}
-      />
-      <EuiText color={numCharacters > characterLimit ? 'danger' : 'default'}>
-        {numCharacters}/{characterLimit} characters
-      </EuiText>
+      <EuiFlexGroup direction="column">
+        <EuiFlexItem>
+          <EuiFlexGroup justifyContent="flexStart" gutterSize="s">
+            <EuiFlexItem grow={false}>
+              <EuiText>File Format: </EuiText>
+            </EuiFlexItem>
+            <EuiFlexItem grow={false}>
+              <EuiSelect
+                options={options}
+                fullWidth={false}
+                onChange={onOptionSelect}
+                value={initialFileType}
+              />
+            </EuiFlexItem>
+          </EuiFlexGroup>
+        </EuiFlexItem>
+        <EuiFlexItem>
+          <EuiCodeEditor
+            onChange={onTextUpdate}
+            width={'full'}
+            value={codeEditorText}
+            mode={fileType}
+          />
+        </EuiFlexItem>
+        <EuiFlexItem>
+          <EuiText color={numCharacters > characterLimit ? 'danger' : 'default'}>
+            {numCharacters}/{characterLimit} characters
+          </EuiText>
+        </EuiFlexItem>
+      </EuiFlexGroup>
     </EuiPageContentBody>
   );
 };

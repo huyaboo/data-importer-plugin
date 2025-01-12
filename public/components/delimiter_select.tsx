@@ -4,7 +4,6 @@ import { EuiTitle, EuiSelect, EuiSpacer } from '@elastic/eui';
 import { CSV_SUPPORTED_DELIMITERS } from '../../common/constants';
 
 export interface DelimiterSelectProps {
-  showDelimiterChoice: boolean;
   onDelimiterChange: (delimiter: any) => void;
   initialDelimiter?: string;
 }
@@ -15,7 +14,7 @@ export const DelimiterSelect = ({ onDelimiterChange, initialDelimiter }: Delimit
       <EuiTitle size="xs">
         <span>
           {i18n.translate('dataImporterPlugin.importType', {
-            defaultMessage: 'Delimiter',
+            defaultMessage: 'Delimiter Options',
           })}
         </span>
       </EuiTitle>
