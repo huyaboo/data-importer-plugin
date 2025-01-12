@@ -1,12 +1,29 @@
 # Data Importer Plugin
 
-A OpenSearch Dashboards plugin for importing your static data.
+An OpenSearch Dashboards plugin for importing your static data to OpenSearch indexes directly from Dashboards via text box or file upload. Multiple Data Source (MDS) compatible
 
 Supported filetypes:
 
 - JSON
 - CSV
 - NDJSON
+- And more (TBD)
+
+## Configurations
+
+```yaml
+# Enable the plugin
+data_importer_plugin.enabled: true
+
+# Configure which file types will be supported (by default, all 3 are enabled)
+data_importer_plugin.enabledFileTypes: ['csv', 'json', 'ndjson']
+
+# Configure file size upload limit in bytes
+data_importer_plugin.maxFileSizeBytes: 100000000
+
+# Configure character limit for text data
+data_importer_plugin.maxTextCount: 10000
+```
 
 ---
 
