@@ -28,7 +28,7 @@ import {
   ImportTypeSelector,
   IMPORT_CHOICE_FILE,
   IMPORT_CHOICE_TEXT,
-} from './import_type';
+} from './import_type_selector';
 import { importFile } from '../lib/import_file';
 import { importText } from '../lib/import_text';
 import { ImportResponse } from '../types';
