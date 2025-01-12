@@ -4,7 +4,7 @@ import { SupportedFileTypes } from '../../common/types';
 
 export interface ImportFileContentBodyProps {
   enabledFileTypes: SupportedFileTypes[];
-  onFileUpdate: (file: File) => void;
+  onFileUpdate: (file?: File) => void;
 }
 
 export const ImportFileContentBody = ({
@@ -16,6 +16,8 @@ export const ImportFileContentBody = ({
   const onFileChange = (files: FileList | null) => {
     if (files && files.length > 0) {
       onFileUpdate(files[0]);
+    } else {
+      onFileUpdate(undefined);
     }
   };
 

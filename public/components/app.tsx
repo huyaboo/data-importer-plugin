@@ -98,7 +98,7 @@ export const DataImporterPluginApp = ({
     setDataType(type);
   };
 
-  const onFileInput = (file: File) => {
+  const onFileInput = (file?: File) => {
     setInputFile(file);
   };
 
