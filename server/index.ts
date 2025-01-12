@@ -10,6 +10,7 @@ export const config: PluginConfigDescriptor<ConfigSchema> = {
   exposeToBrowser: {
     enabledFileTypes: true,
     maxFileSizeBytes: true,
+    maxTextCount: true,
   },
 };
 

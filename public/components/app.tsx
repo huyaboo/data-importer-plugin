@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { i18n } from '@osd/i18n';
 import { FormattedMessage, I18nProvider } from '@osd/i18n/react';
 import { BrowserRouter as Router } from 'react-router-dom';
-
 import {
   EuiButton,
   EuiPage,
@@ -13,13 +12,16 @@ import {
   EuiTitle,
   EuiPageSideBar,
   EuiFieldText,
+  EuiSpacer,
 } from '@elastic/eui';
-
-import { DataSourceOption } from 'src/plugins/data_source_management/public';
+import {
+  DataSourceManagementPluginSetup,
+  DataSourceOption,
+  DataSourceSelectableConfig,
+} from 'src/plugins/data_source_management/public';
 import { extname } from 'path';
 import { CoreStart } from '../../../../src/core/public';
 import { NavigationPublicPluginStart } from '../../../../src/plugins/navigation/public';
-
 import { PLUGIN_ID } from '../../common';
 import {
   ImportChoices,
@@ -31,18 +33,21 @@ import { importFile } from '../lib/import_file';
 import { importText } from '../lib/import_text';
 import { ImportResponse } from '../types';
 import { SupportedFileTypes } from '../../common/types';
-import { ConfigSchema } from '../../config';
+import { PublicConfigSchema } from '../../config';
 import { ImportTextContentBody } from './import_text_content';
 import { ImportFileContentBody } from './import_file_content';
 import { CSV_FILE_TYPE, CSV_SUPPORTED_DELIMITERS } from '../../common/constants';
 import { DelimiterSelect } from './delimiter_select';
 
-interface DataImporterPluginAppDeps {
+interface DataImporterPluginAppProps {
   basename: string;
   notifications: CoreStart['notifications'];
   http: CoreStart['http'];
+  savedObjects: CoreStart['savedObjects'];
   navigation: NavigationPublicPluginStart;
-  config: ConfigSchema;
+  config: PublicConfigSchema;
+  dataSourceEnabled: boolean;
+  dataSourceManagement?: DataSourceManagementPluginSetup;
 }
 
 export const DataImporterPluginApp = ({
@@ -51,16 +56,23 @@ export const DataImporterPluginApp = ({
   http,
   navigation,
   config,
-}: DataImporterPluginAppDeps) => {
+  savedObjects,
+  dataSourceEnabled,
+  dataSourceManagement,
+}: DataImporterPluginAppProps) => {
+  const DataSourceMenu = dataSourceManagement?.ui.getDataSourceMenu<DataSourceSelectableConfig>();
   const [indexName, setIndexName] = useState<string>();
   const [importType, setImportType] = useState<ImportChoices>(IMPORT_CHOICE_FILE);
   const [disableImport, setDisableImport] = useState<boolean>();
   const [dataType, setDataType] = useState<SupportedFileTypes | undefined>(
-    config.enabledFileTypes.length > 0 ? config.enabledFileTypes[0] : undefined
+    config.enabledFileTypes.length > 0
+      ? (config.enabledFileTypes[0] as SupportedFileTypes)
+      : undefined
   );
   const [inputText, setText] = useState<string | undefined>();
   const [inputFile, setInputFile] = useState<File | undefined>();
   const [dataSourceId, setDataSourceId] = useState<string | undefined>();
+  const [selectedDataSource, setSelectedDataSource] = useState<DataSourceOption | undefined>();
   const [showDelimiterChoice, setShowDelimiterChoice] = useState<boolean>(shouldShowDelimiter());
   const [delimiter, setDelimiter] = useState<string | undefined>(
     dataType === CSV_FILE_TYPE ? CSV_SUPPORTED_DELIMITERS[0] : undefined
@@ -75,7 +87,7 @@ export const DataImporterPluginApp = ({
     setImportType(type);
   };
 
-  const onIndexNameChange = (e) => {
+  const onIndexNameChange = (e: any) => {
     setIndexName(e.target.value);
   };
 
@@ -94,13 +106,14 @@ export const DataImporterPluginApp = ({
     setText(text);
   };
 
-  const onDelimiterChange = (e) => {
+  const onDelimiterChange = (e: any) => {
     setDelimiter(e.target.value);
   };
 
-  const onDataSourceSelect = (selectedDataSource: DataSourceOption[]) => {
-    if (selectedDataSource.length > 0) {
-      setDataSourceId(selectedDataSource[0].id);
+  const onDataSourceSelect = (newDataSource: DataSourceOption[]) => {
+    if (newDataSource.length > 0) {
+      setDataSourceId(newDataSource[0].id);
+      setSelectedDataSource(newDataSource[0]);
     }
   };
 
@@ -136,9 +149,10 @@ export const DataImporterPluginApp = ({
         })
       );
     } else {
+      const errorMessage = response ? `: ${response.message.message}` : '';
       notifications.toasts.addDanger(
         i18n.translate('dataImporterPlugin.dataImportFailed', {
-          defaultMessage: 'Data import failed',
+          defaultMessage: `Data import failed${errorMessage}`,
         })
       );
     }
@@ -165,7 +179,26 @@ export const DataImporterPluginApp = ({
         })
       );
     }
-  }, [inputText, inputFile, config, notifications]);
+  }, [inputText, inputFile]);
+
+  const renderDataSourceComponent = useMemo(() => {
+    return (
+      <div>
+        <DataSourceMenu
+          dataSourceManagement={dataSourceManagement}
+          componentType={'DataSourceSelectable'}
+          componentConfig={{
+            fullWidth: true,
+            savedObjects: savedObjects.client,
+            notifications,
+            onSelectedDataSources: onDataSourceSelect,
+            selectedOption: selectedDataSource,
+          }}
+        />
+        <EuiSpacer size="m" />
+      </div>
+    );
+  }, [savedObjects, notifications]);
 
   function shouldDisableImportButton() {
     const validFileType =
@@ -205,7 +238,9 @@ export const DataImporterPluginApp = ({
                 <DelimiterSelect onDelimiterChange={onDelimiterChange} value={delimiter} />
               )}
               <EuiFieldText placeholder="Index name" onChange={onIndexNameChange} />
-              <EuiButton fullWidth={false} isDisabled={disableImport} onClick={importData}>
+              <EuiSpacer size="m" />
+              {dataSourceEnabled && renderDataSourceComponent}
+              <EuiButton fullWidth={true} isDisabled={disableImport} onClick={importData}>
                 Import
               </EuiButton>
             </EuiPageSideBar>
@@ -243,15 +278,15 @@ export const DataImporterPluginApp = ({
                 {importType === IMPORT_CHOICE_TEXT && (
                   <ImportTextContentBody
                     onTextChange={onTextInput}
-                    enabledFileTypes={config.enabledFileTypes}
-                    initialFileType={dataType}
+                    enabledFileTypes={config.enabledFileTypes as SupportedFileTypes[]}
+                    initialFileType={dataType as SupportedFileTypes}
                     characterLimit={config.maxTextCount}
                     onFileTypeChange={onDataTypeChange}
                   />
                 )}
                 {importType === IMPORT_CHOICE_FILE && (
                   <ImportFileContentBody
-                    enabledFileTypes={config.enabledFileTypes}
+                    enabledFileTypes={config.enabledFileTypes as SupportedFileTypes[]}
                     onFileUpdate={onFileInput}
                   />
                 )}

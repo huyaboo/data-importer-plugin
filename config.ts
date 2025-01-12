@@ -21,3 +21,4 @@ export const configSchema = schema.object({
 });
 
 export type ConfigSchema = TypeOf<typeof configSchema>;
+export type PublicConfigSchema = ConfigSchema;

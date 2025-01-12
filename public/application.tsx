@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppMountParameters, CoreStart } from '../../../src/core/public';
-import { AppPluginStartDependencies } from './types';
+import { DataImporterPluginStartDependencies } from './types';
 import { DataImporterPluginApp } from './components/app';
-import { ConfigSchema } from '../config';
+import { PublicConfigSchema } from '../config';
+import { DataImporterPluginSetupDeps } from './plugin';
 
 export const renderApp = (
-  { notifications, http }: CoreStart,
-  { navigation }: AppPluginStartDependencies,
+  { notifications, http, savedObjects }: CoreStart,
+  { navigation }: DataImporterPluginStartDependencies,
   { appBasePath, element }: AppMountParameters,
-  config: ConfigSchema
+  { dataSource, dataSourceManagement }: DataImporterPluginSetupDeps,
+  config: PublicConfigSchema
 ) => {
   ReactDOM.render(
     <DataImporterPluginApp
@@ -18,6 +20,9 @@ export const renderApp = (
       http={http}
       navigation={navigation}
       config={config}
+      savedObjects={savedObjects}
+      dataSourceEnabled={!!dataSource}
+      dataSourceManagement={dataSourceManagement}
     />,
     element
   );

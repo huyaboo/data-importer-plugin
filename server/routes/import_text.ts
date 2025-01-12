@@ -51,14 +51,22 @@ export function importTextRoute(
         });
       }
 
-      const indexExists = await client.indices.exists({
-        index: request.query.indexName,
-      });
+      try {
+        const indexExists = await client.indices.exists({
+          index: request.query.indexName,
+        });
 
-      if (!indexExists.body) {
-        return response.badRequest({
+        if (!indexExists.body) {
+          return response.badRequest({
+            body: {
+              message: `Index ${request.query.indexName} does not exist`,
+            },
+          });
+        }
+      } catch (e) {
+        return response.internalError({
           body: {
-            message: `Index ${request.query.indexName} does not exist`,
+            message: `Error checking if index exists: ${e}`,
           },
         });
       }

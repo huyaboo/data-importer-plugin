@@ -1,4 +1,3 @@
-import { i18n } from '@osd/i18n';
 import {
   AppMountParameters,
   CoreSetup,
@@ -8,10 +7,11 @@ import {
 } from '../../../src/core/public';
 import {
   DataImporterPluginSetup,
+  DataImporterPluginSetupDeps,
   DataImporterPluginStart,
-  AppPluginStartDependencies,
+  DataImporterPluginStartDependencies,
 } from './types';
-import { PLUGIN_NAME, PLUGIN_NAME_AS_TITLE } from '../common';
+import { PLUGIN_NAME_AS_TITLE } from '../common';
 import { ConfigSchema } from '../config';
 
 export class DataImporterPlugin
@@ -22,7 +22,7 @@ export class DataImporterPlugin
     this.config = initializerContext.config.get();
   }
 
-  public setup(core: CoreSetup): DataImporterPluginSetup {
+  public setup(core: CoreSetup, setupDeps: DataImporterPluginSetupDeps): DataImporterPluginSetup {
     const config = this.config;
     // Register an application into the side navigation menu
     core.application.register({
@@ -34,7 +34,13 @@ export class DataImporterPlugin
         // Get start services as specified in opensearch_dashboards.json
         const [coreStart, depsStart] = await core.getStartServices();
         // Render the application
-        return renderApp(coreStart, depsStart as AppPluginStartDependencies, params, config);
+        return renderApp(
+          coreStart,
+          depsStart as DataImporterPluginStartDependencies,
+          params,
+          setupDeps,
+          config
+        );
       },
     });
 

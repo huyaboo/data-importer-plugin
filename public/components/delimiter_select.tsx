@@ -1,6 +1,6 @@
 import React from 'react';
 import { i18n } from '@osd/i18n';
-import { EuiTitle, EuiSelect } from '@elastic/eui';
+import { EuiTitle, EuiSelect, EuiSpacer } from '@elastic/eui';
 import { CSV_SUPPORTED_DELIMITERS } from '../../common/constants';
 
 export interface DelimiterSelectProps {
@@ -26,6 +26,7 @@ export const DelimiterSelect = ({ onDelimiterChange, initialDelimiter }: Delimit
         onChange={onDelimiterChange}
         value={initialDelimiter}
       />
+      <EuiSpacer size="m" />
     </div>
   );
 };

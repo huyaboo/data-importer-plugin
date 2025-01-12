@@ -85,6 +85,8 @@ export const ImportTypeSelector = ({
         checked={importType === IMPORT_CHOICE_TEXT}
         onChange={() => onChange(IMPORT_CHOICE_TEXT)}
       />
+
+      <EuiSpacer size="m" />
     </EuiFormFieldset>
   );
 };
