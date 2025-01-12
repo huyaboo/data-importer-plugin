@@ -237,6 +237,13 @@ export const DataImporterPluginApp = ({
               {showDelimiterChoice && (
                 <DelimiterSelect onDelimiterChange={onDelimiterChange} value={delimiter} />
               )}
+              <EuiTitle size="xs">
+                <span>
+                  {i18n.translate('dataImporterPlugin.importType', {
+                    defaultMessage: 'Data Source Options',
+                  })}
+                </span>
+              </EuiTitle>
               <EuiFieldText placeholder="Index name" onChange={onIndexNameChange} />
               <EuiSpacer size="m" />
               {dataSourceEnabled && renderDataSourceComponent}
