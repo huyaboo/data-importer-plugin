@@ -1,4 +1,4 @@
-import { OpenSearchClient, RequestHandlerContext } from 'opensearch-dashboards/server';
+import { OpenSearchClient, RequestHandlerContext } from '../../../../src/core/server';
 
 export const decideClient = async (
   dataSourceEnabled: boolean,
@@ -6,6 +6,7 @@ export const decideClient = async (
   dataSourceId?: string
 ): Promise<OpenSearchClient> => {
   return dataSourceEnabled && dataSourceId
-    ? await context.dataSource.opensearch.getClient(dataSourceId)
+    ? // @ts-expect-error
+      await context.dataSource.opensearch.getClient(dataSourceId)
     : context.core.opensearch.client.asCurrentUser;
 };

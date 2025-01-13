@@ -1,5 +1,5 @@
-import { OpenSearchClient } from 'opensearch-dashboards/server';
 import { Readable } from 'stream';
+import { OpenSearchClient } from '../../../src/core/server';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DataImporterPluginSetup {}

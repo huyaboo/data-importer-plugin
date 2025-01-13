@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should render with MDS 1`] = `ShallowWrapper {}`;
+
+exports[`App should render without MDS 1`] = `ShallowWrapper {}`;

@@ -1,0 +1,213 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImportTextContent should render 1`] = `
+<div>
+  <div
+    class="euiPageContentBody"
+  >
+    <div
+      class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
+    >
+      <div
+        class="euiFlexItem"
+      >
+        <div
+          class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
+        >
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
+          >
+            <div
+              class="euiText euiText--medium"
+            >
+              File Format: 
+            </div>
+          </div>
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
+          >
+            <div
+              class="euiFormControlLayout"
+            >
+              <div
+                class="euiFormControlLayout__childrenWrapper"
+              >
+                <select
+                  class="euiSelect"
+                >
+                  <option
+                    value="csv"
+                  >
+                    csv
+                  </option>
+                  <option
+                    value="json"
+                  >
+                    json
+                  </option>
+                  <option
+                    value="ndjson"
+                  >
+                    ndjson
+                  </option>
+                </select>
+                <div
+                  class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
+                >
+                  <span
+                    class="euiFormControlLayoutCustomIcon"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                      focusable="false"
+                      height="16"
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="euiFlexItem"
+      >
+        <div
+          class="euiCodeEditorWrapper"
+          data-test-subj="codeEditorContainer"
+        >
+          <button
+            class="euiCodeEditorKeyboardHint"
+            data-test-subj="codeEditorHint"
+          >
+            <p
+              class="euiText"
+            >
+              Press Enter to start editing.
+            </p>
+            <p
+              class="euiText"
+            >
+              When you're done, press Escape to stop editing.
+            </p>
+          </button>
+          <div
+            class=" ace_editor ace-tm"
+            style="height: 500px;"
+          >
+            <textarea
+              autocapitalize="off"
+              autocorrect="off"
+              class="ace_text-input"
+              id="mocked-id"
+              spellcheck="false"
+              style="opacity: 0;"
+              tabindex="-1"
+              wrap="off"
+            />
+            <div
+              aria-hidden="true"
+              class="ace_gutter"
+            >
+              <div
+                class="ace_layer ace_gutter-layer ace_folding-enabled"
+              />
+              <div
+                class="ace_gutter-active-line"
+              />
+            </div>
+            <div
+              class="ace_scroller"
+            >
+              <div
+                class="ace_content"
+              >
+                <div
+                  class="ace_layer ace_print-margin-layer"
+                >
+                  <div
+                    class="ace_print-margin"
+                    style="left: 4px; visibility: visible;"
+                  />
+                </div>
+                <div
+                  class="ace_layer ace_marker-layer"
+                />
+                <div
+                  class="ace_layer ace_text-layer"
+                  style="padding: 0px 4px;"
+                />
+                <div
+                  class="ace_layer ace_marker-layer"
+                />
+                <div
+                  class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                >
+                  <div
+                    class="ace_cursor"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="ace_scrollbar ace_scrollbar-v"
+              style="display: none; width: 20px;"
+            >
+              <div
+                class="ace_scrollbar-inner"
+                style="width: 20px;"
+              />
+            </div>
+            <div
+              class="ace_scrollbar ace_scrollbar-h"
+              style="display: none; height: 20px;"
+            >
+              <div
+                class="ace_scrollbar-inner"
+                style="height: 20px;"
+              />
+            </div>
+            <div
+              style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+            >
+              <div
+                style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+              />
+              <div
+                style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+              >
+                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="euiFlexItem"
+      >
+        <div
+          class="euiText euiText--medium"
+        >
+          <div
+            class="euiTextColor euiTextColor--default"
+          >
+            0
+            /
+            10000
+             characters
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

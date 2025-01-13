@@ -1,9 +1,13 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "./target",
+    "esModuleInterop": true,
     "skipLibCheck": true
   },
+  // Allow importing JSON files as modules.
+  "resolveJsonModule": true,
   "include": [
     "index.ts",
     "common/**/*.ts",
@@ -12,5 +16,5 @@
     "server/**/*.ts",
     "../../typings/**/*"
   ],
-  "exclude": []
+  "exclude": ["node_modules", "*/node_modules/"]
 }

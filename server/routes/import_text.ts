@@ -3,7 +3,7 @@ import { CSV_SUPPORTED_DELIMITERS } from '../../common/constants';
 import { IRouter } from '../../../../src/core/server';
 import { configSchema } from '../../config';
 import { IFileParser } from '../types';
-import { decideClient } from '../util';
+import { decideClient } from '../utils/util';
 
 export function importTextRoute(
   router: IRouter,

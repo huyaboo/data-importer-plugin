@@ -1,4 +1,4 @@
-import { HttpStart } from 'src/core/public';
+import { HttpStart } from '../../../../src/core/public';
 import { SupportedFileTypes } from '../../common/types';
 import { ImportResponse } from '../types';
 

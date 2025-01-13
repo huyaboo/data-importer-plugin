@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppMountParameters, CoreStart } from '../../../src/core/public';
 import { DataImporterPluginStartDependencies } from './types';
-import { DataImporterPluginApp } from './components/app';
+import { DataImporterPluginApp } from './components/data_importer_app';
 import { PublicConfigSchema } from '../config';
 import { DataImporterPluginSetupDeps } from './types';
 

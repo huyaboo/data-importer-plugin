@@ -1,5 +1,6 @@
 import { EuiFilePicker } from '@elastic/eui';
 import React from 'react';
+import uuid from 'uuid';
 import { SupportedFileTypes } from '../../common/types';
 
 export interface ImportFileContentBodyProps {
@@ -23,6 +24,7 @@ export const ImportFileContentBody = ({
 
   return (
     <EuiFilePicker
+      id={uuid.v4()}
       fullWidth={true}
       display={'large'}
       accept={acceptedFileExtensions}
