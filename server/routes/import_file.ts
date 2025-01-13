@@ -49,7 +49,7 @@ export function importFileRoute(
       },
     },
     async (context, request, response) => {
-      const client = decideClient(dataSourceEnabled, context, request.query.dataSource);
+      const client = await decideClient(dataSourceEnabled, context, request.query.dataSource);
 
       if (!!!client) {
         return response.notFound({

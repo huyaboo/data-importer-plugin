@@ -3,6 +3,9 @@ import { IFileParser, IngestOptions, ValidationOptions } from '../types';
 
 export class JSONParser implements IFileParser {
   public async validateText(text: string, _: ValidationOptions) {
+    if (text.length < 1) {
+      return false;
+    }
     try {
       JSON.parse(text);
       return true;
