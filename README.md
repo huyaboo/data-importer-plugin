@@ -1,6 +1,8 @@
 # Data Importer Plugin
 
-An OpenSearch Dashboards plugin for importing your static data to OpenSearch indexes directly from Dashboards via text box or file upload. Multiple Data Source (MDS) compatible
+An OpenSearch Dashboards plugin for importing your static data to OpenSearch indexes directly from Dashboards via text box or file upload. Multiple Data Source (MDS) compatible.
+
+https://github.com/user-attachments/assets/2eb590cb-a21a-4c4e-8b3f-5517365ffde5
 
 Supported filetypes:
 
@@ -9,7 +11,11 @@ Supported filetypes:
 - NDJSON
 - And more (TBD)
 
+---
+
 ## Configurations
+
+This plugin can be configured in your `config/opensearch_dashboards.yml`
 
 ```yaml
 # Enable the plugin
@@ -25,21 +31,29 @@ data_importer_plugin.maxFileSizeBytes: 100000000
 data_importer_plugin.maxTextCount: 10000
 ```
 
----
-
-## Development
-
-See the [OpenSearch Dashboards contributing
+## Pre-requisites
+To function, this plugin requires OpenSearch Dashboards to be installed and configured. See the [OpenSearch Dashboards contributing
 guide](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/CONTRIBUTING.md) for instructions
 setting up your development environment.
 
-    ## Scripts
-    <dl>
-      <dt><code>yarn osd bootstrap</code></dt>
-      <dd>Execute this to install node_modules and setup the dependencies in your plugin and in OpenSearch Dashboards
-      </dd>
+## Development
 
-      <dt><code>yarn plugin-helpers build</code></dt>
-      <dd>Execute this to create a distributable version of this plugin that can be installed in OpenSearch Dashboards
-      </dd>
-    </dl>
+Place this repo inside your `OpenSearch-Dashboards/plugins` directory.
+
+From the OpenSearch-Dashboards project root, run the following commands:
+```bash
+cd plugins/data-importer-plugin
+
+yarn osd bootstrap
+
+yarn osd start --no-base-path
+```
+
+## Building
+
+From the OpenSearch-Dashboards project root, run the following commands:
+```bash
+cd plugins/data-importer-plugin
+
+yarn plugin-helpers build
+```
