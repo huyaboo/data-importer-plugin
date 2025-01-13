@@ -198,7 +198,7 @@ export const DataImporterPluginApp = ({
         <EuiSpacer size="m" />
       </div>
     );
-  }, [dataSourceManagement, savedObjects.client, notifications, selectedDataSource]);
+  }, [dataSourceManagement, savedObjects.client, notifications]);
 
   function shouldDisableImportButton() {
     const validFileType =
