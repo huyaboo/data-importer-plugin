@@ -198,6 +198,7 @@ export const DataImporterPluginApp = ({
         <EuiSpacer size="m" />
       </div>
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataSourceManagement, savedObjects.client, notifications]);
 
   function shouldDisableImportButton() {
