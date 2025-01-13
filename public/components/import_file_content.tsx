@@ -27,6 +27,7 @@ export const ImportFileContentBody = ({
       display={'large'}
       accept={acceptedFileExtensions}
       onChange={onFileChange}
+      initialPromptText={`Select or drag and drop a ${acceptedFileExtensions} file`}
     />
   );
 };
