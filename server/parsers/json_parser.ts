@@ -7,8 +7,8 @@ export class JSONParser implements IFileParser {
       return false;
     }
     try {
-      JSON.parse(text);
-      return true;
+      const obj = JSON.parse(text);
+      return obj && typeof obj === 'object';
     } catch (e) {
       return false;
     }

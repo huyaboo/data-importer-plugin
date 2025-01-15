@@ -1,6 +1,6 @@
 import { first } from 'rxjs/operators';
 import { TypeOf } from '@osd/config-schema';
-import { DataSourcePluginSetup } from 'src/plugins/data_source/public';
+import { DataSourcePluginSetup } from '../../../src/plugins/data_source/public';
 import {
   PluginInitializerContext,
   CoreSetup,

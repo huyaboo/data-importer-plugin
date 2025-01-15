@@ -1,6 +1,6 @@
+import { PluginInitializerContext } from '../../../src/core/public';
 import './index.scss';
 
-import { PluginInitializerContext } from 'opensearch-dashboards/public';
 import { DataImporterPlugin } from './plugin';
 
 // This exports static code and TypeScript types,

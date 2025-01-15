@@ -1,4 +1,4 @@
-import { HttpStart } from 'src/core/public';
+import { HttpStart } from '../../../../src/core/public';
 import { ImportResponse } from '../types';
 
 export async function importFile(

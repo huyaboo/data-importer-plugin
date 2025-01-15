@@ -8,6 +8,7 @@ import {
   EuiSelect,
   EuiText,
 } from '@elastic/eui';
+import uuid from 'uuid';
 import { SupportedFileTypes } from '../../common/types';
 import { JSON_FILE_TYPE } from '../../common/constants';
 
@@ -67,6 +68,7 @@ export const ImportTextContentBody = ({
         </EuiFlexItem>
         <EuiFlexItem>
           <EuiCodeEditor
+            id={uuid.v4()}
             onChange={onTextUpdate}
             width={'full'}
             value={codeEditorText}

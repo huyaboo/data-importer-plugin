@@ -24,6 +24,7 @@ export class DataImporterPlugin
 
   public setup(core: CoreSetup, setupDeps: DataImporterPluginSetupDeps): DataImporterPluginSetup {
     const config = this.config;
+
     // Register an application into the side navigation menu
     core.application.register({
       id: 'dataImporterPlugin',
