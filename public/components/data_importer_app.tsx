@@ -158,6 +158,7 @@ export const DataImporterPluginApp = ({
   useEffect(() => {
     setDisableImport(shouldDisableImportButton());
     setShowDelimiterChoice(shouldShowDelimiter());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [importType, inputText, inputFile, dataType, indexName]);
 
   useEffect(() => {
