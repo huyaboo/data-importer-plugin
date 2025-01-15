@@ -5,7 +5,7 @@ import { testDataSourceManagementPlugin } from '../../../../src/plugins/data_sou
 import { PublicConfigSchema } from '../../config';
 import { navigationPluginMock } from '../../../../src/plugins/navigation/public/mocks';
 import { shallow } from 'enzyme';
-import { SUPPORTED_FILE_TYPES_LIST } from '../../common';
+import { DEFAULT_SUPPORTED_FILE_TYPES_LIST } from '../../common';
 
 describe('App', () => {
   const notificationsMock = coreMock.createStart().notifications;
@@ -13,7 +13,7 @@ describe('App', () => {
   const savedObjectsMock = coreMock.createStart().savedObjects;
   const navigationMock = navigationPluginMock.createStartContract();
   const mockConfig: PublicConfigSchema = {
-    enabledFileTypes: SUPPORTED_FILE_TYPES_LIST,
+    enabledFileTypes: DEFAULT_SUPPORTED_FILE_TYPES_LIST,
     maxFileSizeBytes: 104857600,
     maxTextCount: 10000,
   };

@@ -48,7 +48,7 @@ export class DataImporterPlugin
     return {};
   }
 
-  public start(core: CoreStart): DataImporterPluginStart {
+  public start(_: CoreStart): DataImporterPluginStart {
     return {};
   }
 

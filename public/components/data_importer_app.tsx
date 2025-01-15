@@ -14,12 +14,12 @@ import {
   EuiFieldText,
   EuiSpacer,
 } from '@elastic/eui';
+import { extname } from 'path';
 import {
   DataSourceManagementPluginSetup,
   DataSourceOption,
   DataSourceSelectableConfig,
-} from 'src/plugins/data_source_management/public';
-import { extname } from 'path';
+} from '../../../../src/plugins/data_source_management/public';
 import { CoreStart } from '../../../../src/core/public';
 import { NavigationPublicPluginStart } from '../../../../src/plugins/navigation/public';
 import { PLUGIN_ID } from '../../common';
@@ -32,7 +32,6 @@ import {
 import { importFile } from '../lib/import_file';
 import { importText } from '../lib/import_text';
 import { ImportResponse } from '../types';
-import { SupportedFileTypes } from '../../common/types';
 import { PublicConfigSchema } from '../../config';
 import { ImportTextContentBody } from './import_text_content';
 import { ImportFileContentBody } from './import_file_content';
@@ -64,10 +63,8 @@ export const DataImporterPluginApp = ({
   const [indexName, setIndexName] = useState<string>();
   const [importType, setImportType] = useState<ImportChoices>(IMPORT_CHOICE_FILE);
   const [disableImport, setDisableImport] = useState<boolean>();
-  const [dataType, setDataType] = useState<SupportedFileTypes | undefined>(
-    config.enabledFileTypes.length > 0
-      ? (config.enabledFileTypes[0] as SupportedFileTypes)
-      : undefined
+  const [dataType, setDataType] = useState<string | undefined>(
+    config.enabledFileTypes.length > 0 ? config.enabledFileTypes[0] : undefined
   );
   const [inputText, setText] = useState<string | undefined>();
   const [inputFile, setInputFile] = useState<File | undefined>();
@@ -91,7 +88,7 @@ export const DataImporterPluginApp = ({
     setIndexName(e.target.value);
   };
 
-  const onDataTypeChange = (type: SupportedFileTypes) => {
+  const onDataTypeChange = (type: string) => {
     if (type !== CSV_FILE_TYPE) {
       setDelimiter(undefined);
     }
@@ -289,15 +286,15 @@ export const DataImporterPluginApp = ({
                 {importType === IMPORT_CHOICE_TEXT && (
                   <ImportTextContentBody
                     onTextChange={onTextInput}
-                    enabledFileTypes={config.enabledFileTypes as SupportedFileTypes[]}
-                    initialFileType={dataType as SupportedFileTypes}
+                    enabledFileTypes={config.enabledFileTypes}
+                    initialFileType={dataType!}
                     characterLimit={config.maxTextCount}
                     onFileTypeChange={onDataTypeChange}
                   />
                 )}
                 {importType === IMPORT_CHOICE_FILE && (
                   <ImportFileContentBody
-                    enabledFileTypes={config.enabledFileTypes as SupportedFileTypes[]}
+                    enabledFileTypes={config.enabledFileTypes}
                     onFileUpdate={onFileInput}
                   />
                 )}

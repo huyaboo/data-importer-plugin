@@ -6,7 +6,7 @@
     "plugin-helpers": "../../scripts/use_node ../../scripts/plugin_helpers",
     "osd": "../../scripts/use_node ../../scripts/osd",
     "opensearch": "node ../../scripts/opensearch",
-    "lint": "node ../../scripts/eslint . && node ../../scripts/stylelint",
+    "lint": "node ../../scripts/eslint .",
     "test:jest-public": "../../node_modules/.bin/jest --config test/jest.public.config.js",
     "test:jest-server": "../../node_modules/.bin/jest --config test/jest.server.config.js",
     "test:jest": "../../node_modules/.bin/jest --config test/jest.config.js",

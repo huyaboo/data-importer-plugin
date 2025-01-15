@@ -2,9 +2,6 @@ import { PluginConfigDescriptor, PluginInitializerContext } from '../../../src/c
 import { configSchema, ConfigSchema } from '../config';
 import { DataImporterPlugin } from './plugin';
 
-// This exports static code and TypeScript types,
-// as well as, OpenSearch Dashboards Platform `plugin()` initializer.
-
 export const config: PluginConfigDescriptor<ConfigSchema> = {
   schema: configSchema,
   exposeToBrowser: {

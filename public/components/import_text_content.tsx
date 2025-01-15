@@ -9,15 +9,14 @@ import {
   EuiText,
 } from '@elastic/eui';
 import uuid from 'uuid';
-import { SupportedFileTypes } from '../../common/types';
 import { JSON_FILE_TYPE } from '../../common/constants';
 
 export interface ImportTextContentBodyProps {
   onTextChange: (text: string) => void;
-  enabledFileTypes: SupportedFileTypes[];
-  onFileTypeChange: (fileType: SupportedFileTypes) => void;
+  enabledFileTypes: string[];
+  onFileTypeChange: (fileType: string) => void;
   characterLimit: number;
-  initialFileType: SupportedFileTypes;
+  initialFileType: string;
 }
 
 export const ImportTextContentBody = ({
@@ -28,7 +27,7 @@ export const ImportTextContentBody = ({
   initialFileType,
 }: ImportTextContentBodyProps) => {
   const [codeEditorText, setCodeEditorText] = useState<string>('');
-  const [fileType, setFileType] = useState<SupportedFileTypes>(initialFileType);
+  const [fileType, setFileType] = useState<string>(initialFileType);
   const [numCharacters, setNumCharacters] = useState<number>(0);
   const options = enabledFileTypes.map((type) => {
     return {
@@ -43,9 +42,9 @@ export const ImportTextContentBody = ({
     setNumCharacters(text.length);
   };
 
-  const onOptionSelect = (e) => {
+  const onOptionSelect = (e: any) => {
     setFileType(e.target.value === JSON_FILE_TYPE ? e.target.value : undefined);
-    onFileTypeChange(e.target.value as SupportedFileTypes);
+    onFileTypeChange(e.target.value);
   };
 
   return (

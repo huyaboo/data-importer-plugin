@@ -3,16 +3,9 @@ import { CSV_FILE_TYPE, JSON_FILE_TYPE, NDJSON_FILE_TYPE } from './common/consta
 
 export const configSchema = schema.object({
   enabled: schema.boolean({ defaultValue: false }),
-  enabledFileTypes: schema.arrayOf(
-    schema.oneOf([
-      schema.literal(CSV_FILE_TYPE),
-      schema.literal(JSON_FILE_TYPE),
-      schema.literal(NDJSON_FILE_TYPE),
-    ]),
-    {
-      defaultValue: [CSV_FILE_TYPE, JSON_FILE_TYPE, NDJSON_FILE_TYPE],
-    }
-  ),
+  enabledFileTypes: schema.arrayOf(schema.string(), {
+    defaultValue: [CSV_FILE_TYPE, JSON_FILE_TYPE, NDJSON_FILE_TYPE],
+  }),
   maxFileSizeBytes: schema.number({
     defaultValue: 100000000,
     min: 1,

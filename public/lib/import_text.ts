@@ -1,11 +1,10 @@
 import { HttpStart } from '../../../../src/core/public';
-import { SupportedFileTypes } from '../../common/types';
 import { ImportResponse } from '../types';
 
 export async function importText(
   http: HttpStart,
   text: string,
-  textFormat: SupportedFileTypes,
+  textFormat: string,
   indexName: string,
   delimiter?: string,
   selectedDataSourceId?: string

@@ -1,10 +1,9 @@
-import { SupportedFileTypes } from 'common/types';
 import { httpServiceMock } from '../../../../src/core/public/mocks';
 import { importText } from './import_text';
 
 interface ImportTextTestCaseFormat {
   text: string;
-  textFormat: SupportedFileTypes;
+  textFormat: string;
   indexName: string;
   delimiter?: string;
   selectedDataSourceId?: string;

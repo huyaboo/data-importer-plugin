@@ -52,8 +52,9 @@ export class CSVParser implements IFileParser {
   public async ingestFile(file: Readable, options: IngestOptions) {
     const { client, indexName, delimiter } = options;
 
-    let numFailedDocuments = 0;
     const numDocuments = await new Promise<number>((resolve, reject) => {
+      let numFailedDocuments = 0;
+
       parseStream(file, { headers: true, delimiter })
         .validate((row: any) => {
           for (const key in row) {

@@ -1,14 +1,14 @@
 import { schema, TypeOf } from '@osd/config-schema';
+import { FileParserService } from 'server/parsers/file_parser_service';
 import { CSV_SUPPORTED_DELIMITERS } from '../../common/constants';
 import { IRouter } from '../../../../src/core/server';
 import { configSchema } from '../../config';
-import { IFileParser } from '../types';
 import { decideClient } from '../utils/util';
 
 export function importTextRoute(
   router: IRouter,
   config: TypeOf<typeof configSchema>,
-  fileParsers: Map<string, IFileParser>,
+  fileParsers: FileParserService,
   dataSourceEnabled: boolean
 ) {
   router.post(
@@ -18,7 +18,7 @@ export function importTextRoute(
         query: schema.object({
           fileType: schema.string({
             validate(value: string) {
-              if (!(config.enabledFileTypes as string[]).includes(value)) {
+              if (!config.enabledFileTypes.includes(value)) {
                 return `must be an enabled file type`;
               }
             },
@@ -68,7 +68,7 @@ export function importTextRoute(
       let isValid;
       try {
         isValid = await fileParsers
-          .get(request.query.fileType)
+          .getFileParser(request.query.fileType)
           ?.validateText(request.body.text, { delimiter: request.query.delimiter });
       } catch (e) {
         return response.badRequest({
@@ -84,7 +84,7 @@ export function importTextRoute(
 
       try {
         const message = await fileParsers
-          .get(request.query.fileType)
+          .getFileParser(request.query.fileType)
           ?.ingestText(request.body.text, {
             indexName: request.query.indexName,
             client,

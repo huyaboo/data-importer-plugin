@@ -1,10 +1,10 @@
 import { schema, TypeOf } from '@osd/config-schema';
 import { extname } from 'path';
 import { Readable } from 'stream';
+import { FileParserService } from 'server/parsers/file_parser_service';
 import { CSV_SUPPORTED_DELIMITERS } from '../../common/constants';
 import { IRouter } from '../../../../src/core/server';
 import { configSchema } from '../../config';
-import { IFileParser } from '../types';
 import { decideClient } from '../utils/util';
 
 interface FileStream extends Readable {
@@ -16,7 +16,7 @@ interface FileStream extends Readable {
 export function importFileRoute(
   router: IRouter,
   config: TypeOf<typeof configSchema>,
-  fileParsers: Map<string, IFileParser>,
+  fileParsers: FileParserService,
   dataSourceEnabled: boolean
 ) {
   router.post(
@@ -77,14 +77,14 @@ export function importFileRoute(
       const fileExtension = extname(file.hapi.filename).toLowerCase();
       const fileType = fileExtension.startsWith('.') ? fileExtension.slice(1) : fileExtension;
 
-      if (!(config.enabledFileTypes as string[]).includes(fileType)) {
+      if (!config.enabledFileTypes.includes(fileType)) {
         return response.badRequest({
           body: `File type ${fileType} is not supported or enabled`,
         });
       }
 
       try {
-        const message = await fileParsers.get(fileType)?.ingestFile(file, {
+        const message = await fileParsers.getFileParser(fileType)?.ingestFile(file, {
           indexName: request.query.indexName,
           client,
           delimiter: request.query.delimiter,
