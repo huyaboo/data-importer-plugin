@@ -4,4 +4,5 @@ module.exports = {
   rules: {
     '@osd/eslint/require-license-header': 'off',
   },
+  ignorePatterns: ['**/build/**', '**/target/**', '**/node_modules/**'],
 };
