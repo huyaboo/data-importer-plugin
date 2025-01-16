@@ -6,7 +6,7 @@ https://github.com/user-attachments/assets/2eb590cb-a21a-4c4e-8b3f-5517365ffde5
 
 Supported filetypes:
 
-- JSON
+- JSON (treated as 1 document)
 - CSV
 - NDJSON
 - And more (TBD)
@@ -38,9 +38,14 @@ setting up your development environment.
 
 ## Development
 
-Place this repo inside your `OpenSearch-Dashboards/plugins` directory.
+To start, fork this repo, and from the OpenSearch-Dashboards project root, run the following commands:
+```bash
+cd plugins
 
-From the OpenSearch-Dashboards project root, run the following commands:
+git clone <YOUR-FORKED-REPO-LINK>
+```
+
+To run, from the OpenSearch-Dashboards project root, run the following commands:
 ```bash
 cd plugins/data-importer-plugin
 
