@@ -2,7 +2,7 @@ import { first } from 'rxjs/operators';
 import { TypeOf } from '@osd/config-schema';
 import { DataSourcePluginSetup } from '../../../src/plugins/data_source/public';
 import { PluginInitializerContext, CoreSetup, CoreStart, Plugin } from '../../../src/core/server';
-import { configSchema } from '../config';
+import { configSchema } from '../common/config';
 import { DataImporterPluginSetup, DataImporterPluginStart } from './types';
 import { importFileRoute } from './routes/import_file';
 import { CSVParser } from './parsers/csv_parser';

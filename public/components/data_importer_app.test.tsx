@@ -2,7 +2,7 @@ import React from 'react';
 import { DataImporterPluginApp } from './data_importer_app';
 import { coreMock } from '../../../../src/core/public/mocks';
 import { testDataSourceManagementPlugin } from '../../../../src/plugins/data_source_management/public/mocks';
-import { PublicConfigSchema } from '../../config';
+import { PublicConfigSchema } from '../../common/config';
 import { navigationPluginMock } from '../../../../src/plugins/navigation/public/mocks';
 import { shallow } from 'enzyme';
 import { DEFAULT_SUPPORTED_FILE_TYPES_LIST } from '../../common';

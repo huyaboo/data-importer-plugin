@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { AppMountParameters, CoreStart } from '../../../src/core/public';
 import { DataImporterPluginStartDependencies } from './types';
 import { DataImporterPluginApp } from './components/data_importer_app';
-import { PublicConfigSchema } from '../config';
+import { PublicConfigSchema } from '../common/config';
 import { DataImporterPluginSetupDeps } from './types';
 
 export const renderApp = (

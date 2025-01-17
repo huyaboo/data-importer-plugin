@@ -32,7 +32,7 @@ import {
 import { importFile } from '../lib/import_file';
 import { importText } from '../lib/import_text';
 import { ImportResponse } from '../types';
-import { PublicConfigSchema } from '../../config';
+import { PublicConfigSchema } from '../../common/config';
 import { ImportTextContentBody } from './import_text_content';
 import { ImportFileContentBody } from './import_file_content';
 import { CSV_FILE_TYPE, CSV_SUPPORTED_DELIMITERS } from '../../common/constants';

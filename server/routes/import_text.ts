@@ -2,7 +2,7 @@ import { schema, TypeOf } from '@osd/config-schema';
 import { FileParserService } from 'server/parsers/file_parser_service';
 import { CSV_SUPPORTED_DELIMITERS } from '../../common/constants';
 import { IRouter } from '../../../../src/core/server';
-import { configSchema } from '../../config';
+import { configSchema } from '../../common/config';
 import { decideClient } from '../utils/util';
 
 export function importTextRoute(

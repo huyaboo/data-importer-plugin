@@ -1,5 +1,5 @@
 import { schema, TypeOf } from '@osd/config-schema';
-import { CSV_FILE_TYPE, JSON_FILE_TYPE, NDJSON_FILE_TYPE } from './common/constants';
+import { CSV_FILE_TYPE, JSON_FILE_TYPE, NDJSON_FILE_TYPE } from './constants';
 
 export const configSchema = schema.object({
   enabled: schema.boolean({ defaultValue: false }),

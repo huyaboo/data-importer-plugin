@@ -12,7 +12,7 @@ import {
   DataImporterPluginStartDependencies,
 } from './types';
 import { PLUGIN_NAME_AS_TITLE } from '../common';
-import { ConfigSchema } from '../config';
+import { ConfigSchema } from '../common/config';
 
 export class DataImporterPlugin
   implements Plugin<DataImporterPluginSetup, DataImporterPluginStart> {

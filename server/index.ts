@@ -1,5 +1,5 @@
 import { PluginConfigDescriptor, PluginInitializerContext } from '../../../src/core/server';
-import { configSchema, ConfigSchema } from '../config';
+import { configSchema, ConfigSchema } from '../common/config';
 import { DataImporterPlugin } from './plugin';
 
 export const config: PluginConfigDescriptor<ConfigSchema> = {
